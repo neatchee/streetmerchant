@@ -491,18 +491,20 @@ async function runCaptchaDeterrent(browser: Browser, store: Store, page: Page) {
 	);
 
 	if (store.captchaDeterrent?.hardLinks?.length) {
-		deterrentLinks = deterrentLinks.concat(store.captchaDeterrent.hardLinks);
+		deterrentLinks = deterrentLinks.concat(
+			store.captchaDeterrent.hardLinks
+		);
 	}
 
 	if (store.captchaDeterrent?.searchUrl) {
 		if (store.captchaDeterrent.searchTerms) {
 			store.captchaDeterrent.searchTerms.forEach(
-				element => deterrentLinks.push(
-					store.captchaDeterrent?.searchUrl ? store.captchaDeterrent.searchUrl.replace(
-						'%%s', element
-					) : ''
+				(element) => deterrentLinks.push(
+					store.captchaDeterrent?.searchUrl
+						? store.captchaDeterrent.searchUrl.replace('%%s', element)
+						: ''
 				)
-			)
+			);
 		}
 	}
 
@@ -511,23 +513,38 @@ async function runCaptchaDeterrent(browser: Browser, store: Store, page: Page) {
 			brand: 'captcha-deterrent',
 			model: 'captcha-deterrent',
 			series: 'captcha-deterrent',
-			url: deterrentLinks[Math.floor(Math.random() * deterrentLinks.length)]
-		}
-		logger.debug(`Selected captcha-deterrent link: ${link.url}`)
+			url:
+				deterrentLinks[
+					Math.floor(Math.random() * deterrentLinks.length)
+					]
+		};
+		logger.debug(`Selected captcha-deterrent link: ${link.url}`);
 
 		try {
-			const givenWaitFor = store.waitUntil ? store.waitUntil : 'networkidle0';
+			const givenWaitFor = store.waitUntil
+				? store.waitUntil
+				: 'networkidle0';
 			const response: Response | null = await page.goto(link.url, {
 				waitUntil: givenWaitFor
 			});
-			statusCode = await handleResponse(browser, store, page, link, response);
-			setTimeout(() => {},3000);
+			statusCode = await handleResponse(
+				browser,
+				store,
+				page,
+				link,
+				response
+			);
+			setTimeout( () => {
+				//do nothing
+			}, 3000);
 		} catch (error: unknown) {
 			logger.error(error);
 		}
 
 		if (!isStatusCodeInRange(statusCode, successStatusCodes)) {
-			logger.warn(`✖ [${store.name}] - Failed to navigate to anti-captcha target: ${link.url}`)
+			logger.warn(
+				`✖ [${store.name}] - Failed to navigate to anti-captcha target: ${link.url}`
+			)
 		}
 	}
 }

@@ -23,11 +23,17 @@ export const Amazon: Store = {
 		}
 	},
 	captchaDeterrent: {
-		hardLinks: ['https://www.amazon.com/Amazon-Video/b/?ie=UTF8&node=2858778011&ref_=nav_cs_prime_video',
+		hardLinks: [
+			'https://www.amazon.com/Amazon-Video/b/?ie=UTF8&node=2858778011&ref_=nav_cs_prime_video',
 			'https://www.amazon.com/alm/storefront?almBrandId=VUZHIFdob2xlIEZvb2Rz&ref_=nav_cs_whole_foods_in_region',
-			'https://www.amazon.com/gp/goldbox?ref_=nav_cs_gb'],
-		searchUrl: 'https://www.amazon.com/s?k=%%s&i=todays-deals&ref=nb_sb_noss_2',
-		searchTerms: ['goober', 'dungeons+and+dragons']
+			'https://www.amazon.com/gp/goldbox?ref_=nav_cs_gb'
+		],
+		searchTerms: [
+			'goober',
+			'dungeons+and+dragons'
+		],
+		searchUrl:
+			'https://www.amazon.com/s?k=%%s&i=todays-deals&ref=nb_sb_noss_2'
 	},
 	links: [
 		{

@@ -182,7 +182,7 @@ export type CaptchaDeterrent = {
 	hardLinks?: string[];
 	searchUrl?: string;
 	searchTerms?: string[];
-}
+};
 
 export type StatusCodeRangeArray = Array<number | [number, number]>;
 
