@@ -486,9 +486,7 @@ async function runCaptchaDeterrent(browser: Browser, store: Store, page: Page) {
 	let statusCode = 0;
 	let deterrentLinks: string[] = [];
 
-	logger.debug(
-		`[${store.name}] Navigating to random anti-captcha page...`
-	);
+	logger.debug(`[${store.name}] Navigating to random anti-captcha page...`);
 
 	if (store.captchaDeterrent?.hardLinks?.length) {
 		deterrentLinks = deterrentLinks.concat(
@@ -498,10 +496,13 @@ async function runCaptchaDeterrent(browser: Browser, store: Store, page: Page) {
 
 	if (store.captchaDeterrent?.searchUrl) {
 		if (store.captchaDeterrent.searchTerms) {
-			store.captchaDeterrent.searchTerms.forEach(
-				(element) => deterrentLinks.push(
+			store.captchaDeterrent.searchTerms.forEach((element) =>
+				deterrentLinks.push(
 					store.captchaDeterrent?.searchUrl
-						? store.captchaDeterrent.searchUrl.replace('%%s', element)
+						? store.captchaDeterrent.searchUrl.replace(
+								'%%s',
+								element
+						  )
 						: ''
 				)
 			);
@@ -516,7 +517,7 @@ async function runCaptchaDeterrent(browser: Browser, store: Store, page: Page) {
 			url:
 				deterrentLinks[
 					Math.floor(Math.random() * deterrentLinks.length)
-					]
+				]
 		};
 		logger.debug(`Selected captcha-deterrent link: ${link.url}`);
 
@@ -534,8 +535,8 @@ async function runCaptchaDeterrent(browser: Browser, store: Store, page: Page) {
 				link,
 				response
 			);
-			setTimeout( () => {
-				//do nothing
+			setTimeout(() => {
+				// Do nothing
 			}, 3000);
 		} catch (error: unknown) {
 			logger.error(error);
@@ -544,7 +545,7 @@ async function runCaptchaDeterrent(browser: Browser, store: Store, page: Page) {
 		if (!isStatusCodeInRange(statusCode, successStatusCodes)) {
 			logger.warn(
 				`✖ [${store.name}] - Failed to navigate to anti-captcha target: ${link.url}`
-			)
+			);
 		}
 	}
 }
